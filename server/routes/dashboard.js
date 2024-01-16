@@ -9,7 +9,7 @@ router.get("/", authorization, async (req, res) => {
         //res.json(req.user)
         //user_name only because you don't want to return all the info, including the password
 
-        const user = await pool.query("SELECT user_name FROM users WHERE user_id = $1", [req.user]);
+        const user = await pool.query("SELECT user_name FROM users WHERE user_id = $1", [req.user.id]);
 
         res.json(user.rows[0]);
         
