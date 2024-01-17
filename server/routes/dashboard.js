@@ -42,6 +42,24 @@ router.post("/todos", authorization, async (req, res) => {
   
 
 //route to update a todo
+router.put("/todos/:id", authorization, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { completed } = req.body; // Use 'completed' instead of 'description'
+      
+      const updateTodo = await pool.query(
+        "UPDATE todos SET completed = $1 WHERE todo_id = $2 AND user_id = $3 RETURNING *", [completed, id, req.user.id]
+      );
+      if (updateTodo.rows.length === 0) {
+        return res.json("This todo is not yours to update.")
+      }
+
+      res.json("Todo was updated");
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 //route to delete a todo
 
