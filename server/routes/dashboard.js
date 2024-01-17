@@ -4,7 +4,6 @@ const pool = require("../db");
 const authorization = require("../middlewear/authorization");
 
 //route to get all todos and name
-
 router.get("/", authorization, async (req, res) => {
     try {
 
@@ -25,7 +24,6 @@ router.get("/", authorization, async (req, res) => {
 })
 
 //route to create a todo
-
 router.post("/todos", authorization, async (req, res) => {
     try {
       const { description } = req.body;
@@ -62,5 +60,21 @@ router.put("/todos/:id", authorization, async (req, res) => {
   });
 
 //route to delete a todo
+router.delete("/todos/:id", authorization, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleteTodo = await pool.query("DELETE FROM todos WHERE todo_id = $1 AND user_id = $2 RETURNING *", [id, req.user.id]);
+  
+      if (deleteTodo.rows.length === 0) {
+        return res.json("This todo is not yours to delete.");
+      }
+  
+      res.json({ message: `Todo deleted.` });
+  
+    } catch (error) {
+      console.error(error.message); // Fix the variable name here
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });  
 
 module.exports = router;
