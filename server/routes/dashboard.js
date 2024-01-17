@@ -26,6 +26,21 @@ router.get("/", authorization, async (req, res) => {
 
 //route to create a todo
 
+router.post("/todos", authorization, async (req, res) => {
+    try {
+      const { description } = req.body;
+  
+      // If 'completed' is not provided in the request body, default it to false
+      const newTodo = await pool.query("INSERT INTO todos (user_id, description) VALUES($1, $2) RETURNING *", [req.user.id, description]);
+  
+      res.json(newTodo.rows[0]);
+  
+    } catch (err) {
+      console.error(err.message);
+    }
+  });
+  
+
 //route to update a todo
 
 //route to delete a todo
