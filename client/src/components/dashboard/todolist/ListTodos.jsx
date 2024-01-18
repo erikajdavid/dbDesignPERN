@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import UpdateTodo from "./UpdateTodo";
 
-const ListTodos = () => {
+const ListTodos = ({ allTodos }) => {
 
     const [todos, setTodos] = useState([]);
 
@@ -42,8 +42,8 @@ const ListTodos = () => {
     }
 
     useEffect(() => {
-        getAllTodos();
-    },[]);
+        setTodos(allTodos);
+    },[allTodos]);
 
     return (
         <>
