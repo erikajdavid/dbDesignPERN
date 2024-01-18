@@ -34,16 +34,12 @@ const Dashboard = ({ setAuth }) => {
         setTodosChange(false);
     }, [todosChange]);
 
-    console.log(name);
-
-
     const onClickLogout = (e) => {
         e.preventDefault();
 
         localStorage.removeItem("token");
         setAuth(false);
     };
-
 
     return (
         <>
@@ -54,7 +50,6 @@ const Dashboard = ({ setAuth }) => {
             <ListTodos allTodos={allTodos}/>
         </>
     );
-
 }
 
 export default Dashboard;

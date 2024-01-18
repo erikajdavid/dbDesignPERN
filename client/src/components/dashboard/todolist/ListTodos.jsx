@@ -23,9 +23,10 @@ const ListTodos = ({ allTodos }) => {
     //get all todos
     const getAllTodos = async () => {
         try {
-            const response = await fetch("http://localhost:5000/todos", {
+            const response = await fetch("http://localhost:5000/dashboard/todos", {
                 method: "GET",
                 headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
             });
 
             if (!response.ok) {
@@ -40,7 +41,7 @@ const ListTodos = ({ allTodos }) => {
         } catch (err) {
             console.error(err.message);
         }   
-    }
+    };
 
     useEffect(() => {
         setTodos(allTodos);
@@ -52,7 +53,10 @@ const ListTodos = ({ allTodos }) => {
             {todos.length !== 0 && todos[0].todo_id !== null && todos.map((todo) => {
                 return (
                     <li key={todo.todo_id} className="listContainer">
-                        <UpdateTodo id={todo.todo_id} completed={todo.completed} />
+                        <UpdateTodo
+                            id={todo.todo_id}
+                            storedCompleted={todo.completed}
+                        />
                         {todo.description}
                         <button onClick={() => deleteTodoOnClick(todo.todo_id)}>delete</button>
                     </li>
