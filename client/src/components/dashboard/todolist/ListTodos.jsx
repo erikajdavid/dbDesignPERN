@@ -49,7 +49,7 @@ const ListTodos = ({ allTodos }) => {
     return (
         <>
             <ul>
-            {todos.map((todo) => {
+            {todos.length !== 0 && todos[0].todo_id !== null && todos.map((todo) => {
                 return (
                     <li key={todo.todo_id} className="listContainer">
                         <UpdateTodo id={todo.todo_id} completed={todo.completed} />
