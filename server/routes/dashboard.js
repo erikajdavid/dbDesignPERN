@@ -13,7 +13,7 @@ router.get("/", authorization, async (req, res) => {
 
         //here's a shorter way to wraite the code on line 11
 
-        const user = await pool.query("SELECT u.user_name, t.todo_id, t.description FROM users AS u LEFT JOIN todos AS t ON u.user_id = t.user_id WHERE u.user_id = $1", [req.user.id]);
+        const user = await pool.query("SELECT u.user_name, t.todo_id, t.description, t.completed FROM users AS u LEFT JOIN todos AS t ON u.user_id = t.user_id WHERE u.user_id = $1", [req.user.id]);
 
         res.json(user.rows);
         
@@ -48,6 +48,7 @@ router.put("/todos/:id", authorization, async (req, res) => {
       const updateTodo = await pool.query(
         "UPDATE todos SET completed = $1 WHERE todo_id = $2 AND user_id = $3 RETURNING *", [completed, id, req.user.id]
       );
+
       if (updateTodo.rows.length === 0) {
         return res.json("This todo is not yours to update.")
       }
