@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import InputTodo from "./todolist/InputTodo";
+
 const Dashboard = ({ setAuth }) => {
 
     const [name, setName] = useState("");
@@ -15,7 +17,8 @@ const Dashboard = ({ setAuth }) => {
 
             //console.log(parseResponse);
             
-            setName(parseResponse.user_name);
+            setName(parseResponse[1].user_name);
+            console.log(parseResponse[1].user_name);
 
         } catch (error) {
             console.error(error.message);
@@ -25,6 +28,8 @@ const Dashboard = ({ setAuth }) => {
     useEffect(() => {
         getName()
     }, []);
+
+    console.log(name);
 
 
     const onClickLogout = (e) => {
@@ -37,9 +42,10 @@ const Dashboard = ({ setAuth }) => {
 
     return (
         <>
-            <h1>Dashboard</h1>
             <p>Welcome, {name}!</p>
+            <p>Here's your to-do list.</p>
             <button onClick={(e) => onClickLogout(e)}>Log out</button>
+            <InputTodo />
         </>
     );
 
