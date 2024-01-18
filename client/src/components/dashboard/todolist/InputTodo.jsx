@@ -32,7 +32,7 @@ const InputTodo = () => {
     }
     return (
         <>
-            <h1>Pern Todo List</h1>
+            <h1>Your To-do list!</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="description"></label>
                 <input 
