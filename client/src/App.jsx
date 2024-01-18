@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components//dashboard/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
+import LandingPage from "./components/LandingPage";
 
 function App() {
 
@@ -42,6 +43,10 @@ function App() {
   return (
     <>
       <Routes>
+      <Route
+          path="/"
+          element={<LandingPage />}
+        />
         <Route
           path="/login"
           element={!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />}
