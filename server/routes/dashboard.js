@@ -52,7 +52,8 @@ router.put("/todos/:id", authorization, async (req, res) => {
         return res.json("This todo is not yours to update.")
       }
 
-      res.json("Todo was updated");
+      res.json(updateTodo.rows[0]);
+
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ error: "Internal Server Error" });
