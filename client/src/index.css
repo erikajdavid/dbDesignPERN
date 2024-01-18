@@ -82,3 +82,16 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 10px 0;
+}
+
+.listContainer {
+  display: flex;
+  justify-content: space-between
+}
