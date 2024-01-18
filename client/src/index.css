@@ -77,3 +77,8 @@ input {
   margin-bottom: 20px;
   padding: 10px;
 }
+
+.landingLinksCtn {
+  display: flex;
+  flex-direction: column;
+}
