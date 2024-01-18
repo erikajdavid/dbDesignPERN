@@ -9,8 +9,9 @@ const ListTodos = ({ allTodos }) => {
     //delete todo
     const deleteTodoOnClick = async (id) => {
         try {
-            const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
+            const deleteTodo = await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
                 method: "DELETE",
+                headers: {token: localStorage.token}
             });
             
             setTodos(todos.filter(todo => todo.todo_id !== id));
