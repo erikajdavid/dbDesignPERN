@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputTodo = () => {
+const InputTodo = ({ setTodosChange }) => {
 
     const [description, setDescription] = useState("");
 
@@ -26,6 +26,8 @@ const InputTodo = () => {
             const parseResponse = await response.json();
 
             console.log(parseResponse);
+
+            setTodosChange(true);
 
             //clean input
 

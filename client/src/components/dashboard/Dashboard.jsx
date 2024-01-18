@@ -7,6 +7,7 @@ const Dashboard = ({ setAuth }) => {
 
     const [name, setName] = useState("");
     const [allTodos, setAllTodos] = useState([]);
+    const [todosChange, setTodosChange] = useState(false);
 
     const getProfile = async () => {
         try {
@@ -29,8 +30,9 @@ const Dashboard = ({ setAuth }) => {
     }
 
     useEffect(() => {
-        getProfile()
-    }, []);
+        getProfile();
+        setTodosChange(false);
+    }, [todosChange]);
 
     console.log(name);
 
@@ -48,7 +50,7 @@ const Dashboard = ({ setAuth }) => {
             <p>Welcome, {name}!</p>
             <p>Here's your to-do list.</p>
             <button onClick={(e) => onClickLogout(e)}>Log out</button>
-            <InputTodo />
+            <InputTodo setTodosChange={setTodosChange}/>
             <ListTodos allTodos={allTodos}/>
         </>
     );
