@@ -8,18 +8,24 @@ const InputTodo = () => {
         e.preventDefault();
 
         try {
+
+            const myHeaders = new Headers();
+
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("token", localStorage.token);
+
+            console.log(localStorage.token);
+
             const body = { description };
-            const response = await fetch("http://localhost:5000/todos", {
+            const response = await fetch("http://localhost:5000/dashboard/todos", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(body),
+                headers: myHeaders,
+                body: JSON.stringify(body)
             });
 
-            console.log(response);
+            const parseResponse = await response.json();
 
-            //quick fix but I don't like this solution
-            //maybe use the spread operator and add the new todo to the existing array
-            window.location = "/";
+            console.log(parseResponse);
 
             //clean input
 
@@ -28,8 +34,8 @@ const InputTodo = () => {
         } catch (err) {
             console.error(err.message);        
         }
-
     }
+
     return (
         <>
             <h1>Your To-do list!</h1>
