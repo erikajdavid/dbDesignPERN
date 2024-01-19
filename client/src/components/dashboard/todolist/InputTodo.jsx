@@ -13,8 +13,6 @@ const InputTodo = ({ setTodosChange }) => {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("token", localStorage.token);
 
-            console.log(localStorage.token);
-
             const body = { description };
             await fetch("http://localhost:5000/dashboard/todos", {
                 method: "POST",
