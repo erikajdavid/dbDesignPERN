@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import UpdateTodo from "./UpdateTodo";
 
-const ListTodos = ({ allTodos }) => {
+const ListTodos = ({ allTodos, setTodosChange }) => {
 
+    console.log(allTodos);
     const [todos, setTodos] = useState([]);
 
     //delete todo
@@ -33,10 +34,8 @@ const ListTodos = ({ allTodos }) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             };
 
-            const data = await response.json();
-            const orderedTodos = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            setTodos(orderedTodos);
-            console.log(data);
+            const parseResponse = await response.json();
+            setTodos(parseResponse);
             
         } catch (err) {
             console.error(err.message);
@@ -50,18 +49,19 @@ const ListTodos = ({ allTodos }) => {
     return (
         <>
             <ul>
-            {todos.length !== 0 && todos[0].todo_id !== null && todos.map((todo) => {
-                return (
-                    <li key={todo.todo_id} className="listContainer">
-                        <UpdateTodo
-                            id={todo.todo_id}
-                            storedCompleted={todo.completed}
-                        />
-                        {todo.description}
-                        <button onClick={() => deleteTodoOnClick(todo.todo_id)}>delete</button>
-                    </li>
-                );
-            })}
+                {todos.length !== 0 && todos[0].todo_id !== null && todos.map((todo) => {
+                    return (
+                        <li key={todo.todo_id} className="listContainer">
+                            <UpdateTodo
+                                id={todo.todo_id}
+                                storedCompleted={todo.completed}
+                                setTodosChange={setTodosChange}
+                            />
+                            {todo.description}
+                            <button onClick={() => deleteTodoOnClick(todo.todo_id)}>delete</button>
+                        </li>
+                    );
+                })}
             </ul>
         </>
     );

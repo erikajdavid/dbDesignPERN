@@ -18,21 +18,15 @@ const Dashboard = ({ setAuth }) => {
 
             const parseResponse = await response.json();
 
-            //console.log(parseResponse);
+            console.log(parseResponse);
             setAllTodos(parseResponse);
             
             setName(parseResponse[0].user_name);
-            console.log(parseResponse[0].user_name);
 
         } catch (error) {
             console.error(error.message);
         }
     }
-
-    useEffect(() => {
-        getProfile();
-        setTodosChange(false);
-    }, [todosChange]);
 
     const onClickLogout = (e) => {
         e.preventDefault();
@@ -41,13 +35,18 @@ const Dashboard = ({ setAuth }) => {
         setAuth(false);
     };
 
+    useEffect(() => {
+        getProfile();
+        setTodosChange(false);
+    }, [todosChange]);
+
     return (
         <>
             <p>Welcome, {name}!</p>
             <p>Here's your to-do list.</p>
             <button onClick={(e) => onClickLogout(e)}>Log out</button>
             <InputTodo setTodosChange={setTodosChange}/>
-            <ListTodos allTodos={allTodos}/>
+            <ListTodos allTodos={allTodos} setTodosChange={setTodosChange} />
         </>
     );
 }
