@@ -18,15 +18,13 @@ const Dashboard = ({ setAuth }) => {
 
             const parseResponse = await response.json();
 
-            console.log(parseResponse);
             setAllTodos(parseResponse);
-            
             setName(parseResponse[0].user_name);
 
         } catch (error) {
             console.error(error.message);
         }
-    }
+    };
 
     const onClickLogout = (e) => {
         e.preventDefault();

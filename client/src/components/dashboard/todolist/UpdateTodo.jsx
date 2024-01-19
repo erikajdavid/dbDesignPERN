@@ -6,6 +6,8 @@ const UpdateTodo = ({ id, storedCompleted, setTodosChange }) => {
   const [isComplete, setIsComplete] = useState(storedCompleted);
 
   const handleToggleComplete = async () => {
+    setIsComplete((prevComplete) => !prevComplete);
+
     try {
 
       const myHeaders = new Headers();
@@ -27,7 +29,6 @@ const UpdateTodo = ({ id, storedCompleted, setTodosChange }) => {
       console.error('Error toggling completion status:', error);
     } finally {
       // Toggle the completed status locally
-      setIsComplete(!isComplete);
     }
   };
 
